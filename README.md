@@ -12,13 +12,17 @@ Make sure you have java installed. Instructions for installing java on Mac can b
 ```
 git clone https://github.com/joyceeqq/software-testing-mini-campaign.git
 ```
-2. Place the 2 CSV files you would want to compare into the `/sample` directory. You can also run this program with the 3 sample csv files provided in the directory.
-3. Key in this 
+2. cd in your  terminal to the location you clone this github repo
+```
+cd <location-of-github-repo>
+```
+3. Place the 2 CSV files you would want to compare into the `/sample` directory. You can also run this program with the 3 sample csv files provided in the directory.
+4. Key in this 
 ```
 javac Main.java
 ```
-4. To compare 2 csv files, please follow the format of: `java Main {filename1} {filename2} --columns {columns to compare that's separated by comma}`. The following is an example to compare sample_file_1.csv and sample_file_2.csv.
+5. To compare 2 csv files, please follow the format of: `java Main {filename1} {filename2} --columns {columns to compare that's separated by comma}`. The following is an example to compare sample_file_1.csv and sample_file_2.csv.
 ```
 java Main sample_file_1.csv sample_file_3.csv --columns "Customer ID#","Account No.","Type"
 ```
-5. The csv file containing all mismatch and excpetions will then be generated under the exception folder as "output.csv"
+6. The csv file containing all mismatch and excpetions will then be generated under the exception folder as "output.csv"
