@@ -9,11 +9,11 @@ import java.util.List;
 public class ReadCSV {
     public ReadCSV(){}
 
-    public CSV openFile(String nameOfFile) {
+    public CSV openFile(String nameOfFile) throws ReadCSVException{
         return new CSV(nameOfFile);
     }
 
-    public boolean compareFiles(CSV file1, CSV file2, String[] columns){
+    public boolean compareFiles(CSV file1, CSV file2, String[] columns) throws ReadCSVException{
         ArrayList<String> e = new ArrayList<String>();
 
         //Headers will be checked against headers
@@ -27,8 +27,7 @@ public class ReadCSV {
 
         // Check if there's same number of headers or they have the same content
         if (headersForFile1.size() != headersForFile2.size()||!Arrays.equals(cloneHeadersForFile1, cloneHeadersForFile2)){
-            System.out.println("Error: The headers of these 2 files do not even match. The file is thus uncomparable.");
-            System.exit(1);
+            throw new ReadCSVException("Headers of files do not match and is thus incomparable");
         }
 
         for (int i = 1; i < file1.count; i++){
@@ -75,7 +74,7 @@ public class ReadCSV {
         }
 
         if (e.size()>0){
-            System.out.println("Creating exceptions/mismatch file in the exception folder....");
+            System.out.println("Creating exception file in the exception folder....");
             try{
                 File file = new File("./exception/output.csv");
                 file.createNewFile();
@@ -88,10 +87,10 @@ public class ReadCSV {
 
                 writeCSV.flush();
                 writeCSV.close();
-                System.out.println("Total number of exceeptions: " + e.size());
+                System.out.println("Total number of exceptions: " + e.size());
                 System.out.println("You can find the exception file under the exception folder (/exception).");
             } catch (IOException ex) {
-                System.out.println("File not found");
+                throw new ReadCSVException("File is not found");
             }
         }
         return e.size() ==0;

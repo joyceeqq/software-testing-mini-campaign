@@ -9,7 +9,7 @@ public class CSV {
     String[] head = new String[0];
     int count = 0;
 
-    public CSV(String pathToFile){
+    public CSV(String pathToFile) throws ReadCSVException{
         try {
             BufferedReader bufferReader = new BufferedReader(new FileReader(pathToFile));
             String oneLine;
@@ -17,16 +17,26 @@ public class CSV {
             while ((oneLine = bufferReader.readLine())!=null){
                 count++;
                 con += oneLine + "\n";
-                lines.add(oneLine);
+                String[] tokenised = oneLine.split(",");
 
                 if (count == 1){
-                    head = oneLine.split(",");
+                    head = tokenised;
+                } else{
+                    if (tokenised.length != head.length){
+                        System.out.println("Invalid file: " + pathToFile);
+                        throw new ReadCSVException("Your csv file is malformed");
+                    }
                 }
+
+                if (oneLine.matches("^[,|\s]+$")){
+                    throw new ReadCSVException("You have a blank header or content");
+                }
+
+                lines.add(oneLine);
             }
             bufferReader.close();
         } catch (IOException e) {
-            System.out.println("Error:" + e.getMessage());
-            System.exit(1);
+            throw new ReadCSVException("File is not found");
         }
     }
 }
