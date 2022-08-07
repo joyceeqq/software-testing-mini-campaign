@@ -37,6 +37,7 @@ The fuzzer implemented in this project is a mutation-based fuzzer. It is able to
 3. Generate and mutate commands
 4. Pass command as arguments
 5. Catch un-caught exceptions and record failed attempts
+
 String mutations are generated using random insertion, deletion and replacement. Numerical mutations is also implemented by randomly incrementing or decrementing the no. of lines or columns to generate.
 
 ## How to run the fuzzer
