@@ -26,3 +26,30 @@ javac Main.java
 java Main sample_file_1.csv sample_file_3.csv --columns "Customer ID#","Account No.","Type"
 ```
 6. The csv file containing all mismatch and excpetions will then be generated under the exception folder as "output.csv"
+
+## Running the Tests
+Please make sure you have JUnit installed and properly configured before running the ReadCSVTest file.
+
+## Fuzzing Implementation
+The fuzzer implemented in this project is a mutation-based fuzzer. It is able to:
+1. Generate and mutate CSV files
+2. Generate and mutate filenames
+3. Generate and mutate commands
+4. Pass command as arguments
+5. Catch un-caught exceptions and record failed attempts
+String mutations are generated using random insertion, deletion and replacement. Numerical mutations is also implemented by randomly incrementing or decrementing the no. of lines or columns to generate.
+
+## How to run the fuzzer
+Ensure you have compiled Main.java before doing the following steps.
+```
+javac Fuzzer.java
+javac FuzzyTest.java
+```
+After compilation, you can run the fuzzer by:
+```
+java FuzzyTest.java {number of repeats}
+# Example: java FuzzyTest.java 11111
+```
+Please note that the program will create csv files in `sample/fuzz` based on the number you keyed in (ensure you have enough memory).
+
+After running the fuzzer, `fuzzed_summary.csv` will be generate to document all the failures and will be left empty if no failures are detected. In the scenario where there is no failures detected, the directory `sample/fuzz` will be deleted automatically.

@@ -20,13 +20,19 @@ public class ReadCSV {
         List<String> headersForFile1 = Arrays.asList(file1.head);
         List<String> headersForFile2 = Arrays.asList(file2.head);
 
-        String[] cloneHeadersForFile1 = file1.head.clone();
-        String[] cloneHeadersForFile2 = file2.head.clone();
-        Arrays.sort(cloneHeadersForFile1);
-        Arrays.sort(cloneHeadersForFile2);
+        for (String header: headersForFile1){
+            if (headersForFile2.indexOf('"' + header + '"') == -1 ){
+                throw new ReadCSVException("Headers of files do not match and is thus incomparable");
+            }
+        }
 
-        // Check if there's same number of headers or they have the same content
-        if (headersForFile1.size() != headersForFile2.size()||!Arrays.equals(cloneHeadersForFile1, cloneHeadersForFile2)){
+        for (String header: headersForFile2){
+            if (headersForFile1.indexOf('"' + header + '"') == -1){
+                throw new ReadCSVException("Headers of files do not match and is thus incomparable");
+            }
+        }
+
+        if (headersForFile1.size() != headersForFile2.size()){
             throw new ReadCSVException("Headers of files do not match and is thus incomparable");
         }
 
